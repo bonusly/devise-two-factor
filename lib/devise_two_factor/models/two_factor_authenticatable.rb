@@ -1,4 +1,3 @@
-require 'attr_encrypted'
 require 'rotp'
 
 module Devise
