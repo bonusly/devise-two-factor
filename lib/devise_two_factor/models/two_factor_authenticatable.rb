@@ -8,21 +8,11 @@ module Devise
       include Devise::Models::DatabaseAuthenticatable
 
       included do
-        unless singleton_class.ancestors.include?(AttrEncrypted)
-          extend AttrEncrypted
-        end
-
-        unless attr_encrypted?(:otp_secret)
-          attr_encrypted :otp_secret,
-            :key  => self.otp_secret_encryption_key,
-            :mode => :per_attribute_iv_and_salt unless self.attr_encrypted?(:otp_secret)
-        end
-
         attr_accessor :otp_attempt
       end
 
       def self.required_fields(klass)
-        [:encrypted_otp_secret, :encrypted_otp_secret_iv, :encrypted_otp_secret_salt, :consumed_timestep]
+        [:otp_secret, :consumed_timestep]
       end
 
       # This defaults to the model's otp_secret
